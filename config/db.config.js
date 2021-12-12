@@ -1,3 +1,3 @@
 module.exports = {
-    db: 'mongodb://localhost/box-management'
+    db: 'mongodb+srv://nhatvii:nhatvi1801@cluster0.lddoe.mongodb.net/Box-management?retryWrites=true&w=majority'
 }
