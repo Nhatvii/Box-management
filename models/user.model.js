@@ -19,6 +19,14 @@ const userSchema = new Schema({
     date: {
         type: Date,
         default: Date.now(),
+    },
+    address: {
+        type: String,
+        required: true,
+    },
+    phone: {
+        type: Number,
+        required: true
     }
 });
 

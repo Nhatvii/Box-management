@@ -2,6 +2,7 @@ const express = require('express');
 // const { route } = require('./routes/users.routes');
 const mongoose = require('mongoose');
 const dbConfig = require('./config/db.config');
+var cors = require('cors');
 
 const auth = require('./middlewares/auth');
 const errors = require('./middlewares/errors');
@@ -37,9 +38,24 @@ const swaggerOptions = {
         // },
         // security: [
         //     {
-        //         bearerAuth: [],
+        //         bearerAuth: {
+        //             type: "http",
+        //             scheme: "bearer",
+        //         },
         //     },
         // ],
+        components: {
+            securitySchemes: {
+              bearerAuth: {
+                type: 'http',
+                scheme: 'bearer',
+                bearerFormat: 'JWT',
+              }
+            }
+          },
+          security: [{
+            bearerAuth: []
+          }]
     },
     apis: ['./routes/*.js'],
 };
@@ -71,8 +87,15 @@ app.use(
         ],
     })
 );
-
+// app.use(function(req, res, next) {
+//     res.setHeader('Access-Control-Allow-Origin', '*');
+//     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+//     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+//     res.setHeader('Access-Control-Allow-Credentials', true);
+//     next();
+// });
 app.use(express.json());
+app.use(cors());
 
 app.use("/users", require("./routes/users.routes"));
 
